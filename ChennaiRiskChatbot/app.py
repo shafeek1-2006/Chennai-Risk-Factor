@@ -9,11 +9,11 @@ import plotly.express as px
 import streamlit as st
 import mysql.connector
 
-# MySQL connection
 conn = mysql.connector.connect(
-    host="localhost",
+    host="127.0.0.1",
+    port=3306,
     user="root",
-    password="sqlsr@123",
+    password="sqlsr@123",  # Replace with your actual root password
     database="chennai_chatbot"
 )
 cursor = conn.cursor()
