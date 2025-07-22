@@ -6,4 +6,5 @@ nltk
 openpyxl
 torch
 spacy
+matplotlib
 
