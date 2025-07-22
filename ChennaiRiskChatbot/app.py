@@ -12,7 +12,7 @@ import mysql.connector
 # MySQL connection
 conn = mysql.connector.connect(
     host="localhost",
-    user="Project",
+    user="root",
     password="sqlsr@123",
     database="chennai_chatbot"
 )
