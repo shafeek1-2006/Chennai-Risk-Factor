@@ -7,6 +7,24 @@ import random
 from difflib import get_close_matches
 import plotly.express as px
 import streamlit as st
+import mysql.connector
+
+# MySQL connection
+conn = mysql.connector.connect(
+    host="localhost",
+    user="Project",
+    password="sqlsr@123",
+    database="chennai_chatbot"
+)
+cursor = conn.cursor()
+
+# ✅ Step 4 - Function to store user & bot messages
+def log_chat(user_input, bot_response):
+    query = "INSERT INTO chat_history (user_input, bot_response, timestamp) VALUES (%s, %s, NOW())"
+    cursor.execute(query, (user_input, bot_response))
+    conn.commit()
+
+
 
 st.set_page_config(page_title="Chennai Risk Chatbot AI", page_icon="🧠", layout="wide")
 
@@ -42,15 +60,23 @@ def get_bot_response(user_input):
     ]
     return random.choice(responses)
 
-# 🗂️ Sidebar - Chat history
+# 🗂️ Sidebar - Chat History from MySQL
 st.sidebar.title("🗂️ Chat History")
-if st.session_state.chat_history:
-    for chat in st.session_state.chat_history:
-        st.sidebar.markdown(f"**You**: {chat['user']}")
-        st.sidebar.markdown(f"**Bot**: {chat['bot']}")
-        st.sidebar.markdown("---")
-else:
-    st.sidebar.info("Start a conversation!")
+
+try:
+    cursor.execute("SELECT id, user_input, bot_response, timestamp FROM chat_history ORDER BY id DESC LIMIT 20")
+    chats = cursor.fetchall()
+    if chats:
+        for cid, utext, btext, ts in chats:
+            st.sidebar.markdown(f"🕒 {ts.strftime('%d %b %Y %I:%M %p')}")
+            st.sidebar.markdown(f"**You**: {utext}")
+            st.sidebar.markdown(f"**Bot**: {btext}")
+            st.sidebar.markdown("---")
+    else:
+        st.sidebar.info("No previous chats found.")
+except Exception as e:
+    st.sidebar.error(f"Error loading history: {e}")
+
 
 # 🏷️ Title and description
 st.title("🤖 Chennai AI Risk Chatbot")
@@ -253,5 +279,8 @@ else:
             "content": bot_reply,
             "type": reply_type
         })
+                # ✅ Save to database
+        log_chat(user_input, bot_reply)
+
         st.session_state.chat_history.append({"user": user_input, "bot": bot_reply})
         st.rerun()
