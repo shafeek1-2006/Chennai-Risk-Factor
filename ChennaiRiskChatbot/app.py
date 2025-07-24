@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import difflib
 import os
 from datetime import datetime
+import openpyxl
 
 # Page config
 st.set_page_config(page_title="Chennai Risk Chatbot", page_icon="🌆")
@@ -95,16 +96,19 @@ for msg in st.session_state.messages:
                 zone_data = risk_df[risk_df["Zone"] == zone]
                 st.dataframe(zone_data)
                 risk_cols = ["Accident", "Air Pollution", "Flood", "Heat", "Crime", "Population"]
-                values = zone_data[risk_cols].iloc[0].values.astype(int)
-                fig, ax = plt.subplots(figsize=(8, 5))
-                bars = ax.bar(risk_cols, values, color='pink')
-                ax.set_ylabel("Risk Level (1=Low, 2=Medium, 3=High)")
-                plt.xticks(rotation=45)
-                for bar in bars:
-                    ax.annotate(f'{int(bar.get_height())}', 
-                        xy=(bar.get_x() + bar.get_width()/2, bar.get_height()), 
-                        xytext=(0, 3), textcoords="offset points", ha='center')
-                st.pyplot(fig)
+                if not zone_data.empty and all(col in zone_data.columns for col in risk_cols):
+                    values = zone_data[risk_cols].iloc[0].values.astype(int)
+                    fig, ax = plt.subplots(figsize=(8, 5))
+                    bars = ax.bar(risk_cols, values, color='pink')
+                    ax.set_ylabel("Risk Level (1=Low, 2=Medium, 3=High)")
+                    plt.xticks(rotation=45)
+                    for bar in bars:
+                        ax.annotate(f'{int(bar.get_height())}', 
+                            xy=(bar.get_x() + bar.get_width()/2, bar.get_height()), 
+                            xytext=(0, 3), textcoords="offset points", ha='center')
+                    st.pyplot(fig)
+                else:
+                    st.warning("⚠ Risk data for this zone is incomplete or missing.")
 
 # Chat input
 query = st.chat_input("Type your query here...")
@@ -117,9 +121,8 @@ if query:
     q = query.lower()
     zone, reply_type, bot_reply = None, None, ""
 
-    # Check each category
     if "flood" in q or "rain" in q:
-        zones = flood_df["Zone"].dropna().unique()
+        zones = flood_df["Area"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "flood"
         bot_reply = f"🌊 Flood Data for {zone}" if zone else "❗ Mention a valid area."
@@ -163,7 +166,6 @@ if query:
     else:
         bot_reply = "❓ Try asking about accidents, air pollution, crime, heat, flood, population, or risk."
 
-    # Save assistant reply
     st.session_state.messages.append({
         "role": "assistant",
         "content": bot_reply,
@@ -172,4 +174,4 @@ if query:
         "zone": zone
     })
 
-    st.rerun()  # Re-render immediately with new message
+    st.rerun()
