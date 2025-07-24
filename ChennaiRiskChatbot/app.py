@@ -18,10 +18,10 @@ st.title("🤖 Chennai AI Risk Chatbot")
 st.markdown("<p class='big-font'>Ask about <span class='highlight'>accidents, pollution, crime, heat, flood, population, or risk factors</span>.</p>", unsafe_allow_html=True)
 
 # Load data
-accident_df = pd.read_excel("accident1.xlsx")
+accident_df = pd.read_excel("accident.xlsx")
 flood_df = pd.read_excel("flood.xlsx")
-crime_df = pd.read_excel("crime details 1.xlsx")
-air_df = pd.read_excel("air pollution.xlsx")
+crime_df = pd.read_excel("crime_details.xlsx")
+air_df = pd.read_excel("air_pollution.xlsx")
 heat_df = pd.read_excel("heat.xlsx")
 population_df = pd.read_excel("population.xlsx")
 risk_df = pd.read_excel("riskanalysis.xlsx")
@@ -74,25 +74,25 @@ for msg in st.session_state.messages:
             zone = msg.get("zone", "")
             mtype = msg.get("type", "")
             if mtype == "flood":
-                st.dataframe(flood_df[flood_df["Area"] == zone])
-                plot_bar(flood_df, "Area", "People Affected", "Flood Impact", "blue")
+                st.dataframe(flood_df[flood_df["Zone"] == zone])
+                plot_bar(flood_df, "Zone", "People Affected", "Flood Impact", "blue")
             elif mtype == "accident":
-                st.dataframe(accident_df[accident_df["Zone / Area"] == zone])
-                plot_bar(accident_df, "Zone / Area", "No. of Cases", "Accident Cases", "red")
+                st.dataframe(accident_df[accident_df["Zone"] == zone])
+                plot_bar(accident_df, "Zone", "No. of Cases", "Accident Cases", "red")
             elif mtype == "crime":
-                st.dataframe(crime_df[crime_df["Zone Name"] == zone])
-                plot_bar(crime_df, "Zone Name", "Total Crimes", "Crime by Zone", "orange")
+                st.dataframe(crime_df[crime_df["Zone"] == zone])
+                plot_bar(crime_df, "Zone", "Total Crimes", "Crime by Zone", "orange")
             elif mtype == "pollution":
-                st.dataframe(air_df[air_df["Zone / Area"] == zone])
-                plot_bar(air_df, "Zone / Area", "Avg. Value (µg/m³) or AQI", "Air Pollution", "grey")
+                st.dataframe(air_df[air_df["Zone"] == zone])
+                plot_bar(air_df, "Zone", "Avg. Value (µg/m³) or AQI", "Air Pollution", "grey")
             elif mtype == "heat":
                 st.dataframe(heat_df[heat_df["Area"] == zone])
-                plot_bar(heat_df, "Area", "Heatstroke Cases", "Heatstroke Cases", "green")
+                plot_bar(heat_df, "Zone", "Heatstroke Cases", "Heatstroke Cases", "green")
             elif mtype == "population":
                 st.dataframe(population_df[population_df["Zone Name"] == zone])
-                plot_bar(population_df, "Zone Name", "Population", "Population by Zone", "purple")
+                plot_bar(population_df, "Zone", "Population", "Population by Zone", "purple")
             elif mtype == "risk":
-                zone_data = risk_df[risk_df["Area"] == zone]
+                zone_data = risk_df[risk_df["Zone"] == zone]
                 st.dataframe(zone_data)
                 risk_cols = ["Accident", "Air Pollution", "Flood", "Heat", "Crime", "Population"]
                 values = zone_data[risk_cols].iloc[0].values.astype(int)
@@ -119,43 +119,43 @@ if query:
 
     # Check each category
     if "flood" in q or "rain" in q:
-        zones = flood_df["Area"].dropna().unique()
+        zones = flood_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "flood"
         bot_reply = f"🌊 Flood Data for {zone}" if zone else "❗ Mention a valid area."
 
     elif "accident" in q:
-        zones = accident_df["Zone / Area"].dropna().unique()
+        zones = accident_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "accident"
         bot_reply = f"🚧 Accidents in {zone}" if zone else "❗ Mention a valid area."
 
     elif "crime" in q:
-        zones = crime_df["Zone Name"].dropna().unique()
+        zones = crime_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "crime"
         bot_reply = f"🚔 Crimes in {zone}" if zone else "❗ Mention a valid zone."
 
     elif "pollution" in q or "air" in q:
-        zones = air_df["Zone / Area"].dropna().unique()
+        zones = air_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "pollution"
         bot_reply = f"🌫 Air Quality in {zone}" if zone else "❗ Mention a valid zone."
 
     elif "heat" in q or "temperature" in q:
-        zones = heat_df["Area"].dropna().unique()
+        zones = heat_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "heat"
         bot_reply = f"🥵 Heat Impact in {zone}" if zone else "❗ Mention a valid zone."
 
     elif "population" in q:
-        zones = population_df["Zone Name"].dropna().unique()
+        zones = population_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "population"
         bot_reply = f"👥 Population in {zone}" if zone else "❗ Mention a valid zone."
 
     elif "risk" in q or "riskfactor" in q or "risk factor" in q:
-        zones = risk_df["Area"].dropna().unique()
+        zones = risk_df["Zone"].dropna().unique()
         zone = find_zone(q, zones)
         reply_type = "risk"
         bot_reply = f"🚨 Risk Factors in {zone}" if zone else "❗ Mention a valid zone."
