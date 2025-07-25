@@ -1,0 +1,906 @@
+{
+  "Shafeek": {
+    "Chat - Jul 25, 12:08 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi Shafeek, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "12:08 PM"
+      },
+      {
+        "role": "user",
+        "content": "crime in anna nagar",
+        "time": "12:08 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Anna Nagar",
+        "time": "12:08 PM",
+        "type": "crime",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "crime in vadapalani",
+        "time": "12:32 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Vadapalani",
+        "time": "12:32 PM",
+        "type": "crime",
+        "zone": "Vadapalani"
+      },
+      {
+        "role": "user",
+        "content": "flood in thiruvottiyur",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Thiruvottiyur",
+        "time": "12:35 PM",
+        "type": "flood",
+        "zone": "Thiruvottiyur"
+      },
+      {
+        "role": "user",
+        "content": "flood in tondiarpet",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Tondiarpet",
+        "time": "12:35 PM",
+        "type": "flood",
+        "zone": "Tondiarpet"
+      },
+      {
+        "role": "user",
+        "content": "flood in purasaiwakkam",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Purasaiwakkam",
+        "time": "12:35 PM",
+        "type": "flood",
+        "zone": "Purasaiwakkam"
+      },
+      {
+        "role": "user",
+        "content": "flood in t nagar",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Anna Nagar",
+        "time": "12:35 PM",
+        "type": "flood",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "flood in T Nagar",
+        "time": "12:36 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Anna Nagar",
+        "time": "12:36 PM",
+        "type": "flood",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "flood in adyar",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Adyar",
+        "time": "12:37 PM",
+        "type": "flood",
+        "zone": "Adyar"
+      },
+      {
+        "role": "user",
+        "content": "flood in egmore",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Egmore",
+        "time": "12:37 PM",
+        "type": "flood",
+        "zone": "Egmore"
+      },
+      {
+        "role": "user",
+        "content": "flood in Royapuram",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Royapuram",
+        "time": "12:37 PM",
+        "type": "flood",
+        "zone": "Royapuram"
+      },
+      {
+        "role": "user",
+        "content": "flood in velachery",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Velachery",
+        "time": "12:37 PM",
+        "type": "flood",
+        "zone": "Velachery"
+      },
+      {
+        "role": "user",
+        "content": "flood in vadapalani",
+        "time": "12:38 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Vadapalani",
+        "time": "12:38 PM",
+        "type": "flood",
+        "zone": "Vadapalani"
+      },
+      {
+        "role": "user",
+        "content": "flood in madhavaram and perambur",
+        "time": "12:39 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Madhavaram",
+        "time": "12:39 PM",
+        "type": "flood",
+        "zone": "Madhavaram"
+      },
+      {
+        "role": "user",
+        "content": "flood in perambur",
+        "time": "12:39 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Perambur",
+        "time": "12:39 PM",
+        "type": "flood",
+        "zone": "Perambur"
+      },
+      {
+        "role": "user",
+        "content": "flood in koyambedu",
+        "time": "12:40 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Koyambedu",
+        "time": "12:40 PM",
+        "type": "flood",
+        "zone": "Koyambedu"
+      },
+      {
+        "role": "user",
+        "content": "flood in guindy",
+        "time": "12:40 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Guindy",
+        "time": "12:40 PM",
+        "type": "flood",
+        "zone": "Guindy"
+      },
+      {
+        "role": "user",
+        "content": "flood in sholinganallur",
+        "time": "12:42 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83c\udf0a Flood Data for Sholinganallur",
+        "time": "12:42 PM",
+        "type": "flood",
+        "zone": "Sholinganallur"
+      }
+    ],
+    "Chat - Jul 25, 03:30 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi Shafeek, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "03:30 PM"
+      },
+      {
+        "role": "user",
+        "content": "Risk factor",
+        "time": "03:30 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid zone.",
+        "time": "03:30 PM",
+        "type": "risk",
+        "zone": null
+      },
+      {
+        "role": "user",
+        "content": "risk details for accident",
+        "time": "03:31 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid area.",
+        "time": "03:31 PM",
+        "type": "accident",
+        "zone": null
+      }
+    ],
+    "Chat - Jul 25, 03:40 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi Shafeek, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "03:40 PM"
+      },
+      {
+        "role": "user",
+        "content": "Risk",
+        "time": "03:40 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udcca Overall Risk Factors for All Zones",
+        "time": "03:40 PM",
+        "type": "risk_all",
+        "factor": null
+      },
+      {
+        "role": "user",
+        "content": "Risk factor for accident",
+        "time": "03:40 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid area.",
+        "time": "03:40 PM",
+        "type": "accident",
+        "zone": null
+      }
+    ]
+  },
+  "Shakil": {},
+  "Thanzeer": {
+    "Chat - Jul 25, 12:43 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi Thanzeer, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "12:42 PM"
+      },
+      {
+        "role": "user",
+        "content": "Heat in thiruvottiyur",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Thiruvottiyur",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Thiruvottiyur"
+      },
+      {
+        "role": "user",
+        "content": "heat in Egmore ",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Egmore",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Egmore"
+      },
+      {
+        "role": "user",
+        "content": "heat in madhavaram",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Madhavaram",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Madhavaram"
+      },
+      {
+        "role": "user",
+        "content": "heat in tondiarpet",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Tondiarpet",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Tondiarpet"
+      },
+      {
+        "role": "user",
+        "content": "heat in royapuram ",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Royapuram",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Royapuram"
+      },
+      {
+        "role": "user",
+        "content": "heat in perambur",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Perambur",
+        "time": "12:43 PM",
+        "type": "heat",
+        "zone": "Perambur"
+      },
+      {
+        "role": "user",
+        "content": "heat in puraisaivakkam",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Purasaiwakkam",
+        "time": "12:44 PM",
+        "type": "heat",
+        "zone": "Purasaiwakkam"
+      },
+      {
+        "role": "user",
+        "content": "heat in koyambedu",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Koyambedu",
+        "time": "12:44 PM",
+        "type": "heat",
+        "zone": "Koyambedu"
+      },
+      {
+        "role": "user",
+        "content": "heat in velachery",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Velachery",
+        "time": "12:44 PM",
+        "type": "heat",
+        "zone": "Velachery"
+      },
+      {
+        "role": "user",
+        "content": "heat in vadapalani",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Vadapalani",
+        "time": "12:44 PM",
+        "type": "heat",
+        "zone": "Vadapalani"
+      },
+      {
+        "role": "user",
+        "content": "heat in sollinganallur",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83e\udd75 Heat Impact in Sholinganallur",
+        "time": "12:44 PM",
+        "type": "heat",
+        "zone": "Sholinganallur"
+      },
+      {
+        "role": "user",
+        "content": "riskfactor",
+        "time": "12:46 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid zone.",
+        "time": "12:46 PM",
+        "type": "risk",
+        "zone": null
+      },
+      {
+        "role": "user",
+        "content": "heat in alandur",
+        "time": "12:46 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid zone.",
+        "time": "12:46 PM",
+        "type": "heat",
+        "zone": null
+      },
+      {
+        "role": "user",
+        "content": "riskfactor in  velachery",
+        "time": "12:50 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea8 Risk Factors in Velachery",
+        "time": "12:50 PM",
+        "type": "risk",
+        "zone": "Velachery"
+      },
+      {
+        "role": "user",
+        "content": "riskfactor in sholinganallur",
+        "time": "12:51 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea8 Risk Factors in Sholinganallur",
+        "time": "12:51 PM",
+        "type": "risk",
+        "zone": "Sholinganallur"
+      },
+      {
+        "role": "user",
+        "content": "risk factor in anna nagar",
+        "time": "12:52 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea8 Risk Factors in Anna Nagar",
+        "time": "12:52 PM",
+        "type": "risk",
+        "zone": "Anna Nagar"
+      }
+    ]
+  },
+  "shakil": {
+    "Chat - Jul 25, 12:35 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi shakil, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "12:33 PM"
+      },
+      {
+        "role": "user",
+        "content": "crime in thiruvottiyur",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Thiruvottiyur",
+        "time": "12:35 PM",
+        "type": "crime",
+        "zone": "Thiruvottiyur"
+      },
+      {
+        "role": "user",
+        "content": "crime in egmore",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Egmore",
+        "time": "12:35 PM",
+        "type": "crime",
+        "zone": "Egmore"
+      },
+      {
+        "role": "user",
+        "content": "crime in koyambedu",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Koyambedu",
+        "time": "12:35 PM",
+        "type": "crime",
+        "zone": "Koyambedu"
+      },
+      {
+        "role": "user",
+        "content": "crime in t nagar",
+        "time": "12:35 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Anna Nagar",
+        "time": "12:35 PM",
+        "type": "crime",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "crime in t.nagar",
+        "time": "12:36 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in T. Nagar",
+        "time": "12:36 PM",
+        "type": "crime",
+        "zone": "T. Nagar"
+      },
+      {
+        "role": "user",
+        "content": "crime in anna nagar",
+        "time": "12:36 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Anna Nagar",
+        "time": "12:36 PM",
+        "type": "crime",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "crime in perambur",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Perambur",
+        "time": "12:37 PM",
+        "type": "crime",
+        "zone": "Perambur"
+      },
+      {
+        "role": "user",
+        "content": "crime in tondiarpet",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Tondiarpet",
+        "time": "12:37 PM",
+        "type": "crime",
+        "zone": "Tondiarpet"
+      },
+      {
+        "role": "user",
+        "content": "crime in purasaiwakkam",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Purasaiwakkam",
+        "time": "12:37 PM",
+        "type": "crime",
+        "zone": "Purasaiwakkam"
+      },
+      {
+        "role": "user",
+        "content": "crime in madhavaram",
+        "time": "12:37 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Madhavaram",
+        "time": "12:37 PM",
+        "type": "crime",
+        "zone": "Madhavaram"
+      },
+      {
+        "role": "user",
+        "content": "crime in royapuram",
+        "time": "12:38 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Royapuram",
+        "time": "12:38 PM",
+        "type": "crime",
+        "zone": "Royapuram"
+      },
+      {
+        "role": "user",
+        "content": "crime in velachery",
+        "time": "12:38 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Velachery",
+        "time": "12:38 PM",
+        "type": "crime",
+        "zone": "Velachery"
+      },
+      {
+        "role": "user",
+        "content": "crime in egmore",
+        "time": "12:38 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Egmore",
+        "time": "12:38 PM",
+        "type": "crime",
+        "zone": "Egmore"
+      },
+      {
+        "role": "user",
+        "content": "crime in vadapalani",
+        "time": "12:39 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Vadapalani",
+        "time": "12:39 PM",
+        "type": "crime",
+        "zone": "Vadapalani"
+      },
+      {
+        "role": "user",
+        "content": "crime guindy",
+        "time": "12:39 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Guindy",
+        "time": "12:39 PM",
+        "type": "crime",
+        "zone": "Guindy"
+      },
+      {
+        "role": "user",
+        "content": "crime in adyar",
+        "time": "12:39 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Adyar",
+        "time": "12:39 PM",
+        "type": "crime",
+        "zone": "Adyar"
+      },
+      {
+        "role": "user",
+        "content": "crime in sholinganallur",
+        "time": "12:40 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\ude94 Crimes in Sholinganallur",
+        "time": "12:40 PM",
+        "type": "crime",
+        "zone": "Sholinganallur"
+      }
+    ]
+  },
+  "Thanzeer ": {},
+  "irfan": {
+    "Chat - Jul 25, 12:42 PM": [
+      {
+        "role": "assistant",
+        "content": "Hi irfan, welcome to **Chennai AI Assistant Chatbot**! \ud83d\ude0a",
+        "time": "12:42 PM"
+      },
+      {
+        "role": "user",
+        "content": "accident in egmore",
+        "time": "12:42 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Egmore",
+        "time": "12:42 PM",
+        "type": "accident",
+        "zone": "Egmore"
+      },
+      {
+        "role": "user",
+        "content": "accident madhavaram",
+        "time": "12:42 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Madhavaram",
+        "time": "12:42 PM",
+        "type": "accident",
+        "zone": "Madhavaram"
+      },
+      {
+        "role": "user",
+        "content": "accident madhavaram",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Madhavaram",
+        "time": "12:43 PM",
+        "type": "accident",
+        "zone": "Madhavaram"
+      },
+      {
+        "role": "user",
+        "content": "accident thiruvottiyur",
+        "time": "12:43 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Thiruvottiyur",
+        "time": "12:43 PM",
+        "type": "accident",
+        "zone": "Thiruvottiyur"
+      },
+      {
+        "role": "user",
+        "content": "accident tondiarpet",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Tondiarpet",
+        "time": "12:44 PM",
+        "type": "accident",
+        "zone": "Tondiarpet"
+      },
+      {
+        "role": "user",
+        "content": "accident in royapuram",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Royapuram",
+        "time": "12:44 PM",
+        "type": "accident",
+        "zone": "Royapuram"
+      },
+      {
+        "role": "user",
+        "content": "accident perambur",
+        "time": "12:44 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Perambur",
+        "time": "12:44 PM",
+        "type": "accident",
+        "zone": "Perambur"
+      },
+      {
+        "role": "user",
+        "content": "accident in purasaiwakkam",
+        "time": "12:45 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Purasaiwakkam",
+        "time": "12:45 PM",
+        "type": "accident",
+        "zone": "Purasaiwakkam"
+      },
+      {
+        "role": "user",
+        "content": "accident anna nagar",
+        "time": "12:45 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Anna Nagar",
+        "time": "12:45 PM",
+        "type": "accident",
+        "zone": "Anna Nagar"
+      },
+      {
+        "role": "user",
+        "content": "accident koyambedu",
+        "time": "12:46 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Koyambedu",
+        "time": "12:46 PM",
+        "type": "accident",
+        "zone": "Koyambedu"
+      },
+      {
+        "role": "user",
+        "content": "accident t.nagar",
+        "time": "12:46 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\u2757 Mention a valid area.",
+        "time": "12:46 PM",
+        "type": "accident",
+        "zone": null
+      },
+      {
+        "role": "user",
+        "content": "accident t nagar",
+        "time": "12:47 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in T Nagar",
+        "time": "12:47 PM",
+        "type": "accident",
+        "zone": "T Nagar"
+      },
+      {
+        "role": "user",
+        "content": "accident in velachery",
+        "time": "12:47 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in velachery",
+        "time": "12:47 PM",
+        "type": "accident",
+        "zone": "velachery"
+      },
+      {
+        "role": "user",
+        "content": "accident guindy",
+        "time": "12:48 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Guindy",
+        "time": "12:48 PM",
+        "type": "accident",
+        "zone": "Guindy"
+      },
+      {
+        "role": "user",
+        "content": "accident adyar",
+        "time": "12:48 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Adyar",
+        "time": "12:48 PM",
+        "type": "accident",
+        "zone": "Adyar"
+      },
+      {
+        "role": "user",
+        "content": "accident vadapalani",
+        "time": "12:49 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Vadapalani",
+        "time": "12:49 PM",
+        "type": "accident",
+        "zone": "Vadapalani"
+      },
+      {
+        "role": "user",
+        "content": "accident sholinganallur",
+        "time": "12:50 PM"
+      },
+      {
+        "role": "assistant",
+        "content": "\ud83d\udea7 Accidents in Sholinganallur",
+        "time": "12:50 PM",
+        "type": "accident",
+        "zone": "Sholinganallur"
+      }
+    ]
+  }
+}
