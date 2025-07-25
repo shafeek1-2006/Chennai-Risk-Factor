@@ -6,8 +6,6 @@ import os
 from datetime import datetime
 import openpyxl
 import json
-import folium
-from streamlit_folium import st_folium
 
 
 HISTORY_FILE = "history.json"
