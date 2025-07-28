@@ -33,6 +33,8 @@ if "username" not in st.session_state:
 if "chat_title" not in st.session_state:
     st.session_state.chat_title = ""
 
+if "user_email" not in st.session_state:
+    st.session_state.user_email = ""
 
 # Page config
 st.set_page_config(page_title="Chennai Risk Chatbot", page_icon="🌆")
@@ -135,12 +137,14 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
         name = st.text_input("👤 Enter your name:")
         age = st.text_input("🎂 Enter your age:")
         gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
+        email = st.text_input("📧 Enter your email:")
         submitted = st.form_submit_button("Start Chat")
 
-        if submitted and name and age and gender:
+        if submitted and name and age and gender and email:
             st.session_state.username = name
             st.session_state.user_age = age
             st.session_state.user_gender = gender
+            st.session_state.user_email = email
             st.session_state.messages = [{
                 "role": "assistant",
                 "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
@@ -148,6 +152,22 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             }]
             st.rerun()
     st.stop()
+
+
+def email_to_filename(email):
+    return email.replace('@', '_at_').replace('.', '_') + '.json'
+
+# Directory to store chat history
+os.makedirs("history_data", exist_ok=True)
+user_file = os.path.join("history_data", email_to_filename(st.session_state.user_email))
+
+# Load chat history
+if os.path.exists(user_file):
+    with open(user_file, 'r') as f:
+        st.session_state.messages = json.load(f)
+else:
+    st.session_state.messages = st.session_state.get("messages", [])
+
 
 
 
