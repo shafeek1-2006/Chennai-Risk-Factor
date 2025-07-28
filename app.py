@@ -4,35 +4,8 @@ import matplotlib.pyplot as plt
 import difflib
 import os
 from datetime import datetime
-import pytz
 import openpyxl
 import json
-import time
-import random
-
-def send_otp(phone_number):
-    otp = random.randint(100000, 999999)
-    st.session_state["generated_otp"] = otp
-    st.session_state["otp_sent_to"] = phone_number
-    st.session_state["otp_sent_time"] = time.time()
-    st.session_state["otp_sent"] = True
-    st.info(f"🔐 OTP sent to {phone_number} (Simulated): {otp}")
-
-def verify_otp(user_input_otp):
-    if "generated_otp" not in st.session_state:
-        st.error("❌ No OTP was generated yet.")
-        return
-
-    if time.time() - st.session_state["otp_sent_time"] > 120:
-        st.error("⏰ OTP expired. Please request a new one.")
-        del st.session_state["generated_otp"]
-        return
-
-    if int(user_input_otp) == st.session_state["generated_otp"]:
-        st.success("✅ OTP verified successfully!")
-        st.session_state["otp_verified"] = True
-    else:
-        st.error("❌ Incorrect OTP. Please try again.")
 
 
 
@@ -61,13 +34,8 @@ if "chat_title" not in st.session_state:
     st.session_state.chat_title = ""
 
 
-st.set_page_config(
-    page_title="Namma Chennai",
-    page_icon="🛡",  # or use any emoji: 🌇 🏙 📊 ⚠
-    layout="wide"
-)
-
-
+# Page config
+st.set_page_config(page_title="Chennai Risk Chatbot", page_icon="🌆")
 st.markdown("""
     <style>
         .big-font { font-size:24px !important; }
@@ -75,9 +43,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🛡 Namma Chennai - AI Risk Chatbot")
-st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown(f"🗓 *{datetime.now().strftime('%A, %B %d, %Y')}*")
+st.title("🤖 Chennai AI Risk Chatbot")
 
 st.markdown("""
 <p class='big-font'>
@@ -88,7 +54,7 @@ st.markdown("""
 st.markdown("#### 🔍 You can ask about these areas:")
 
 places = [
-    "Tiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
+    "Thiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
     "Perambur", "Purasaiwakkam", "Anna Nagar", "Koyambedu", "T Nagar",
     "Velachery", "Guindy", "Adyar", "Vadapalani", "Sholinganallur"
 ]
@@ -99,34 +65,15 @@ for idx, place in enumerate(places):
         st.markdown(f"- {place}")
 
 
-st.header("Chennai Chatbot")
-
-
-if "otp_verified" not in st.session_state:
-    st.session_state["otp_verified"] = False
-
-if not st.session_state["otp_verified"]:
-    phone_number = st.text_input("📱 Enter your phone number", max_chars=13)
-    if st.button("Send OTP"):
-        if phone_number:
-            otp = random.randint(100000, 999999)
-            st.session_state["generated_otp"] = otp
-            st.session_state["phone_number"] = phone_number
-            st.success(f"✅ OTP has been generated: {otp}")  # For demo
-        else:
-            st.error("Please enter a phone number!")
-
-    entered_otp = st.text_input("🔢 Enter OTP")
-    if st.button("Verify OTP"):
-        if entered_otp == str(st.session_state.get("generated_otp", "")):
-            st.session_state["otp_verified"] = True
-            st.success("🎉 OTP Verified! Welcome to Namma Risk!")
-        else:
-            st.error("❌ Incorrect OTP. Please try again.")
-
-    st.stop()
-
-
+with st.sidebar:
+    # Sidebar: Show Profile if user exists
+    # Sidebar: Collapsible User Profile
+    if st.session_state.username:
+        with st.expander("👤 User Profile", expanded=False):
+            st.markdown(f"- *Name:* {st.session_state.username}")
+            st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
+            st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
+        st.markdown("---")
 
 
     st.markdown("## ➕ New Chat")
@@ -188,67 +135,20 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
         name = st.text_input("👤 Enter your name:")
         age = st.text_input("🎂 Enter your age:")
         gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
-        phone_number = st.text_input("📞 Enter your phone number:")
+        submitted = st.form_submit_button("Start Chat")
 
-        if phone_number and st.button("Send OTP"):
-            st.session_state.generated_otp = "1234"  # Dummy OTP
-            st.success("OTP sent to your number (Demo: 1234)")
-
-        otp = st.text_input("🔐 Enter OTP received:")
-        submit = st.form_submit_button("Verify and Start Chat")
-
-        if submit and otp == st.session_state.get("generated_otp", ""):
+        if submitted and name and age and gender:
             st.session_state.username = name
             st.session_state.user_age = age
             st.session_state.user_gender = gender
-            st.session_state.user_phone = phone_number
-            st.session_state.chat_title = "Chennai Chatbot"
-
-            ist = pytz.timezone('Asia/Kolkata')
-            current_time = datetime.now(ist).strftime("%I:%M %p")
-            welcome_text = f"Hi {name}, welcome to Chennai Chatbot! 😊"
-
             st.session_state.messages = [{
                 "role": "assistant",
-                "content": f"🤖 Chennai Chatbot {current_time}\n\n{welcome_text}",
-                "time": current_time
+                "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
+                "time": datetime.now().strftime("%I:%M %p")
             }]
-
-            st.success("✅ Verified successfully!")
             st.rerun()
+    st.stop()
 
-    st.stop()  # This stops execution until verification is complete
-    
-    # After OTP is verified, display the chat messages
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
-
-# Chat input box (after verification)
-if st.session_state.username != "":
-    user_input = st.chat_input("Type your message...")
-    if user_input:
-        ist = pytz.timezone('Asia/Kolkata')
-        current_time = datetime.now(ist).strftime("%I:%M %p")
-        st.session_state.messages.append({
-            "role": "user",
-            "content": user_input,
-            "time": current_time
-        })
-
-        with st.chat_message("user"):
-            st.markdown(user_input)
-
-        # Dummy AI reply for now
-        response = f"Your message has been received: **{user_input}**"
-        st.session_state.messages.append({
-            "role": "assistant",
-            "content": f"🤖 {st.session_state.chat_title} {current_time}\n\n{response}",
-            "time": current_time
-        })
-
-        with st.chat_message("assistant"):
-            st.markdown(f"🤖 {st.session_state.chat_title} {current_time}\n\n{response}")
 
 
 # Fuzzy zone matcher
@@ -428,29 +328,21 @@ for msg in st.session_state.messages:
             
 
 # Chat input
-import pytz
-from datetime import datetime
-
-# Chat input
 reply_type = None  # Prevent NameError on first check
 query = st.chat_input("Type your query here...")
-
 if query:
-    # Get current IST time
-    ist = pytz.timezone('Asia/Kolkata')
-    ist_now = datetime.now(ist)
-    timestamp = ist_now.strftime("%I:%M %p")  # Correct local time (e.g., 02:51 PM)
-
+    timestamp = datetime.now().strftime("%I:%M %p")
     if st.session_state.chat_title == "":
         if reply_type:
             st.session_state.chat_title = reply_type.capitalize()
         else:
-            st.session_state.chat_title = f"Chat - {ist_now.strftime('%b %d, %I:%M %p')}"
+            st.session_state.chat_title = f"Chat - {datetime.now().strftime('%b %d, %I:%M %p')}"
 
     st.session_state.messages.append({
         "role": "user", "content": query, "time": timestamp
     })
 
+    # 💬 Greeting check logic here
     greetings = [
         "hi", "hello", "hey", "hai", "yo", "sup", "heya", "hiya", "wassup", "what's up",
         "good morning", "good afternoon", "good evening", "morning", "evening", "afternoon",
@@ -467,7 +359,7 @@ if query:
 
     q = query.lower()
     if any(greet in q for greet in greetings):
-        bot_reply = f"🤖 AI {timestamp}\n\nHello {st.session_state.username}! 👋 I'm *Chennai AI Risk Chatbot*. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
+        bot_reply = f"Hello {st.session_state.username}! 👋 I'm *Chennai AI Risk Chatbot*. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
         st.session_state.messages.append({
             "role": "assistant",
             "content": bot_reply,
@@ -476,7 +368,6 @@ if query:
         st.rerun()
 
     zone, reply_type, bot_reply = None, None, ""
-
 
 
     if "flood" in q or "rain" in q:
