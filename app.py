@@ -7,6 +7,32 @@ from datetime import datetime
 import pytz
 import openpyxl
 import json
+import time
+import random
+
+def send_otp(phone_number):
+    otp = random.randint(100000, 999999)
+    st.session_state["generated_otp"] = otp
+    st.session_state["otp_sent_to"] = phone_number
+    st.session_state["otp_sent_time"] = time.time()
+    st.session_state["otp_sent"] = True
+    st.info(f"🔐 OTP sent to {phone_number} (Simulated): {otp}")
+
+def verify_otp(user_input_otp):
+    if "generated_otp" not in st.session_state:
+        st.error("❌ No OTP was generated yet.")
+        return
+
+    if time.time() - st.session_state["otp_sent_time"] > 120:
+        st.error("⏰ OTP expired. Please request a new one.")
+        del st.session_state["generated_otp"]
+        return
+
+    if int(user_input_otp) == st.session_state["generated_otp"]:
+        st.success("✅ OTP verified successfully!")
+        st.session_state["otp_verified"] = True
+    else:
+        st.error("❌ Incorrect OTP. Please try again.")
 
 
 
@@ -82,6 +108,26 @@ with st.sidebar:
             st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
             st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
         st.markdown("---")
+        st.sidebar.markdown("---")
+        st.sidebar.subheader("🔐 OTP Login")
+
+        phone = st.sidebar.text_input("📞 Enter your phone number")
+
+        if st.sidebar.button("Send OTP"):
+            if phone:
+                send_otp(phone)
+            else:
+                st.sidebar.warning("Please enter a valid phone number.")
+
+        if st.session_state.get("otp_sent"):
+            otp_input = st.sidebar.text_input("🔐 Enter OTP")
+            if st.sidebar.button("Verify OTP"):
+                verify_otp(otp_input)
+
+        if not st.session_state.get("otp_verified"):
+            st.warning("⚠️ Please verify OTP to access the dashboard.")
+            st.stop()
+
 
 
     st.markdown("## ➕ New Chat")
