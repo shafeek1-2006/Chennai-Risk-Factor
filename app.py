@@ -34,8 +34,12 @@ if "chat_title" not in st.session_state:
     st.session_state.chat_title = ""
 
 
-# Page config
-st.set_page_config(layout="wide", page_title="Chennai Risk Chatbot", page_icon="🌆")
+st.set_page_config(
+    page_title="Namma Chennai",
+    page_icon="🛡️",  # or use any emoji: 🌇 🏙️ 📊 ⚠️
+    layout="wide"
+)
+
 
 st.markdown("""
     <style>
@@ -44,7 +48,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🤖 Chennai AI Risk Chatbot")
+st.title("🛡️ Namma Chennai - AI Risk Chatbot")
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown(f"🗓️ **{datetime.now().strftime('%A, %B %d, %Y')}**")
 
 st.markdown("""
 <p class='big-font'>
@@ -331,8 +337,10 @@ for msg in st.session_state.messages:
 # Chat input
 reply_type = None  # Prevent NameError on first check
 query = st.chat_input("Type your query here...")
+
 if query:
     timestamp = datetime.now().strftime("%I:%M %p")
+
     if st.session_state.chat_title == "":
         if reply_type:
             st.session_state.chat_title = reply_type.capitalize()
