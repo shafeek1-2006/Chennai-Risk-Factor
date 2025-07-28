@@ -7,8 +7,7 @@ from datetime import datetime
 import pytz
 import openpyxl
 import json
-from twilio.rest import Client
-import random
+
 
 
 HISTORY_FILE = "history.json"
@@ -38,7 +37,7 @@ if "chat_title" not in st.session_state:
 
 st.set_page_config(
     page_title="Namma Chennai",
-    page_icon="🛡️",  # or use any emoji: 🌇 🏙️ 📊 ⚠️
+    page_icon="🛡",  # or use any emoji: 🌇 🏙 📊 ⚠
     layout="wide"
 )
 
@@ -50,9 +49,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🛡️ Namma Chennai - AI Risk Chatbot")
+st.title("🛡 Namma Chennai - AI Risk Chatbot")
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown(f"🗓️ **{datetime.now().strftime('%A, %B %d, %Y')}**")
+st.markdown(f"🗓 *{datetime.now().strftime('%A, %B %d, %Y')}*")
 
 st.markdown("""
 <p class='big-font'>
@@ -63,7 +62,7 @@ st.markdown("""
 st.markdown("#### 🔍 You can ask about these areas:")
 
 places = [
-    "Thiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
+    "Tiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
     "Perambur", "Purasaiwakkam", "Anna Nagar", "Koyambedu", "T Nagar",
     "Velachery", "Guindy", "Adyar", "Vadapalani", "Sholinganallur"
 ]
@@ -79,9 +78,9 @@ with st.sidebar:
     # Sidebar: Collapsible User Profile
     if st.session_state.username:
         with st.expander("👤 User Profile", expanded=False):
-            st.markdown(f"- **Name:** {st.session_state.username}")
-            st.markdown(f"- **Age:** {st.session_state.get('user_age', '-')}")
-            st.markdown(f"- **Gender:** {st.session_state.get('user_gender', '-')}")
+            st.markdown(f"- *Name:* {st.session_state.username}")
+            st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
+            st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
         st.markdown("---")
 
 
@@ -115,7 +114,7 @@ with st.sidebar:
                         st.rerun()
 
                 with col2:
-                    if st.button("🗑️", key=f"delete_{current_user}_{title}", help="Delete this chat", use_container_width=True):
+                    if st.button("🗑", key=f"delete_{current_user}_{title}", help="Delete this chat", use_container_width=True):
                         del all_histories[current_user][title]
                         with open(HISTORY_FILE, "w") as f:
                             json.dump(all_histories, f, indent=2)
@@ -139,100 +138,33 @@ for df in [accident_df, flood_df, crime_df, air_df, heat_df, population_df, risk
 # Initialize session state
 # Ask for user's name only once
 # Ask for user's name, age, gender only once
-st.set_page_config(page_title="User OTP Form", page_icon="🔐", layout="centered")
+if st.session_state.username == "" and st.session_state.chat_title == "":
+    with st.form("user_info_form", clear_on_submit=False):
+        name = st.text_input("👤 Enter your name:")
+        age = st.text_input("🎂 Enter your age:")
+        gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
+        submitted = st.form_submit_button("Start Chat")
 
-# --- Twilio OTP Sending Function ---
-def send_otp(phone_number):
-    account_sid = "ACfe1e427ec68760efc1d8874d377a9a75"
-    auth_token = "8697ca9df3d06d52bd56c738869cbf10"
-    twilio_number = "+918124562125"  # Must be a valid Twilio number
-
-    try:
-        client = Client(account_sid, auth_token)
-        otp = random.randint(100000, 999999)
-        message = client.messages.create(
-            body=f"Your OTP for Namma Risk is {otp}",
-            from_=twilio_number,
-            to=phone_number
-        )
-        st.session_state["otp_sent"] = True
-        st.session_state["generated_otp"] = str(otp)
-        st.success("✅ OTP sent successfully!")
-    except Exception as e:
-        st.error("❌ Failed to send OTP. Please make sure the phone number is verified with Twilio and try again.")
-        st.error(f"Details: {str(e)}")
-
-# --- Session State Setup ---
-if "step" not in st.session_state:
-    st.session_state.step = 1
-if "generated_otp" not in st.session_state:
-    st.session_state.generated_otp = ""
-if "otp_sent_to" not in st.session_state:
-    st.session_state.otp_sent_to = ""
-if "username" not in st.session_state:
-    st.session_state.username = ""
-if "chat_title" not in st.session_state:
-    st.session_state.chat_title = ""
-
-# --- Step 1: Collect User Info & Send OTP ---
-if st.session_state.step == 1:
-    st.title("👤 User Details & OTP Verification")
-
-    name = st.text_input("👤 Enter your name")
-    age = st.number_input("🎂 Enter your age", min_value=1, max_value=120, step=1)
-    gender = st.selectbox("⚧️ Select your gender", ["Male", "Female", "Other"])
-    phone_number = st.text_input("📱 Enter your phone number (with country code)", placeholder="+91XXXXXXXXXX")
-
-    if st.button("📤 Send OTP"):
-        if name and phone_number.strip().startswith("+") and len(phone_number.strip()) >= 10:
-            send_otp(phone_number.strip())
-            st.session_state.temp_name = name
-            st.session_state.temp_age = age
-            st.session_state.temp_gender = gender
-            st.session_state.step = 2
-        else:
-            st.error("Please enter valid name and phone number.")
-
-# --- Step 2: OTP Verification ---
-elif st.session_state.step == 2:
-    st.title("🔐 Verify OTP")
-
-    entered_otp = st.text_input("Enter the OTP sent to your phone", max_chars=6)
-
-    if st.button("✅ Verify OTP"):
-        if entered_otp == st.session_state.generated_otp:
-            st.success("✅ OTP verified successfully!")
-
-            st.session_state.username = st.session_state.temp_name
-            st.session_state.user_age = st.session_state.temp_age
-            st.session_state.user_gender = st.session_state.temp_gender
+        if submitted and name and age and gender:
+            st.session_state.username = name
+            st.session_state.user_age = age
+            st.session_state.user_gender = gender
 
             ist = pytz.timezone('Asia/Kolkata')
             current_time = datetime.now(ist).strftime("%I:%M %p")
 
-            welcome_text = f"Hi {st.session_state.username}, welcome to Chennai AI Assistant Chatbot! 😊"
+            welcome_text = f"Hi brother, welcome to Chennai AI Assistant Chatbot! 😊"
 
             st.session_state.messages = [{
                 "role": "assistant",
                 "content": f"🤖 AI {current_time}\n\n{welcome_text}",
                 "time": current_time
             }]
-
-            st.session_state.step = 3
+            st.markdown(f"🤖 AI {current_time}")
+            st.markdown(welcome_text)
             st.rerun()
-        else:
-            st.error("❌ Invalid OTP. Try again.")
 
-    if st.button("🔁 Resend OTP"):
-        send_otp(st.session_state.otp_sent_to)
-
-# --- Step 3: Success Confirmation ---
-elif st.session_state.step == 3:
-    st.title("🎉 Verification Complete")
-    st.success(f"Hi {st.session_state.username}, you're verified and ready to chat!")
-
-# --- Prevent fallback ---
-st.stop()
+    st.stop()
 
 
 
@@ -277,7 +209,7 @@ for msg in st.session_state.messages:
         mtype = msg.get("type", "")
         
         def show_precaution(title, tips):
-            st.markdown(f"### ⚠️ Precaution for {title}")
+            st.markdown(f"### ⚠ Precaution for {title}")
             for tip in tips:
                 st.markdown(f"- {tip}")
 
@@ -452,7 +384,7 @@ if query:
 
     q = query.lower()
     if any(greet in q for greet in greetings):
-        bot_reply = f"🤖 AI {timestamp}\n\nHello {st.session_state.username}! 👋 I'm **Chennai AI Risk Chatbot**. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
+        bot_reply = f"🤖 AI {timestamp}\n\nHello {st.session_state.username}! 👋 I'm *Chennai AI Risk Chatbot*. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
         st.session_state.messages.append({
             "role": "assistant",
             "content": bot_reply,
