@@ -99,34 +99,32 @@ for idx, place in enumerate(places):
         st.markdown(f"- {place}")
 
 
-with st.sidebar:
-    # Sidebar: Show Profile if user exists
-    # Sidebar: Collapsible User Profile
-    if st.session_state.username:
-        with st.expander("👤 User Profile", expanded=False):
-            st.markdown(f"- *Name:* {st.session_state.username}")
-            st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
-            st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
-        st.markdown("---")
-        st.sidebar.markdown("---")
-        st.sidebar.subheader("🔐 OTP Login")
+st.subheader("🔒 OTP Verification")
 
-        phone = st.sidebar.text_input("📞 Enter your phone number")
+if "otp_verified" not in st.session_state:
+    st.session_state["otp_verified"] = False
 
-        if st.sidebar.button("Send OTP"):
-            if phone:
-                send_otp(phone)
-            else:
-                st.sidebar.warning("Please enter a valid phone number.")
+if not st.session_state["otp_verified"]:
+    phone_number = st.text_input("📱 Enter your phone number", max_chars=13)
+    if st.button("Send OTP"):
+        if phone_number:
+            otp = random.randint(100000, 999999)
+            st.session_state["generated_otp"] = otp
+            st.session_state["phone_number"] = phone_number
+            st.success(f"✅ OTP has been generated: {otp}")  # For demo
+        else:
+            st.error("Please enter a phone number!")
 
-        if st.session_state.get("otp_sent"):
-            otp_input = st.sidebar.text_input("🔐 Enter OTP")
-            if st.sidebar.button("Verify OTP"):
-                verify_otp(otp_input)
+    entered_otp = st.text_input("🔢 Enter OTP")
+    if st.button("Verify OTP"):
+        if entered_otp == str(st.session_state.get("generated_otp", "")):
+            st.session_state["otp_verified"] = True
+            st.success("🎉 OTP Verified! Welcome to Namma Risk!")
+        else:
+            st.error("❌ Incorrect OTP. Please try again.")
 
-        if not st.session_state.get("otp_verified"):
-            st.warning("⚠️ Please verify OTP to access the dashboard.")
-            st.stop()
+    st.stop()
+
 
 
 
