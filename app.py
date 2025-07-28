@@ -145,21 +145,22 @@ st.set_page_config(page_title="User OTP Form", page_icon="🔐", layout="centere
 def send_otp(phone_number):
     account_sid = "VAd4801331480719b32081f528033451c0"
     auth_token = "42d87934f18b33207a188c7dbf9d9286"
-    twilio_number = "+91 8124562125"  # Example: "+1415XXXXXXX"
+    twilio_number = "+918124562125"  # Must be a valid Twilio number
 
-    client = Client(account_sid, auth_token)
-    otp = str(random.randint(100000, 999999))
-
-    message = client.messages.create(
-        body=f"Your OTP for Namma Risk is {otp}",
-        from_=twilio_number,
-        to=phone_number
-    )
-
-    st.session_state.generated_otp = otp
-    st.session_state.otp_sent_to = phone_number
-    st.success(f"✅ OTP has been sent to {phone_number}")
-    return otp
+    try:
+        client = Client(account_sid, auth_token)
+        otp = random.randint(100000, 999999)
+        message = client.messages.create(
+            body=f"Your OTP for Namma Risk is {otp}",
+            from_=twilio_number,
+            to=phone_number
+        )
+        st.session_state["otp_sent"] = True
+        st.session_state["generated_otp"] = str(otp)
+        st.success("✅ OTP sent successfully!")
+    except Exception as e:
+        st.error("❌ Failed to send OTP. Please make sure the phone number is verified with Twilio and try again.")
+        st.error(f"Details: {str(e)}")
 
 # --- Session State Setup ---
 if "step" not in st.session_state:
