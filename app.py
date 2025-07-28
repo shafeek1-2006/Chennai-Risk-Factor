@@ -188,34 +188,67 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
         name = st.text_input("👤 Enter your name:")
         age = st.text_input("🎂 Enter your age:")
         gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
-        submitted = st.form_submit_button("Start Chat")
+        phone_number = st.text_input("📞 Enter your phone number:")
 
-        if submitted and name and age and gender:
+        if phone_number and st.button("Send OTP"):
+            st.session_state.generated_otp = "1234"  # Dummy OTP
+            st.success("OTP sent to your number (Demo: 1234)")
+
+        otp = st.text_input("🔐 Enter OTP received:")
+        submit = st.form_submit_button("Verify and Start Chat")
+
+        if submit and otp == st.session_state.get("generated_otp", ""):
             st.session_state.username = name
             st.session_state.user_age = age
             st.session_state.user_gender = gender
+            st.session_state.user_phone = phone_number
+            st.session_state.chat_title = "Chennai Chatbot"
 
             ist = pytz.timezone('Asia/Kolkata')
             current_time = datetime.now(ist).strftime("%I:%M %p")
-
-            # ✅ Personalized welcome message with user name
             welcome_text = f"Hi {name}, welcome to Chennai Chatbot! 😊"
 
-            # ✅ Store it with updated bot name
             st.session_state.messages = [{
                 "role": "assistant",
                 "content": f"🤖 Chennai Chatbot {current_time}\n\n{welcome_text}",
                 "time": current_time
             }]
 
-            # ✅ Display updated bot name and welcome
-            st.markdown(f"🤖 Chennai Chatbot {current_time}")
-            st.markdown(welcome_text)
+            st.success("✅ Verified successfully!")
             st.rerun()
 
-    st.stop()
+    st.stop()  # This stops execution until verification is complete
+    
+    # After OTP is verified, display the chat messages
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
+# Chat input box (after verification)
+if st.session_state.username != "":
+    user_input = st.chat_input("Type your message...")
+    if user_input:
+        ist = pytz.timezone('Asia/Kolkata')
+        current_time = datetime.now(ist).strftime("%I:%M %p")
+        st.session_state.messages.append({
+            "role": "user",
+            "content": user_input,
+            "time": current_time
+        })
 
+        with st.chat_message("user"):
+            st.markdown(user_input)
+
+        # Dummy AI reply for now
+        response = f"Your message has been received: **{user_input}**"
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": f"🤖 {st.session_state.chat_title} {current_time}\n\n{response}",
+            "time": current_time
+        })
+
+        with st.chat_message("assistant"):
+            st.markdown(f"🤖 {st.session_state.chat_title} {current_time}\n\n{response}")
 
 
 # Fuzzy zone matcher
