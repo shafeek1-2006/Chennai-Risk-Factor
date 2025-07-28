@@ -8,6 +8,7 @@ import openpyxl
 import json
 
 
+
 HISTORY_FILE = "history.json"
 
 # Load chat history
@@ -34,7 +35,8 @@ if "chat_title" not in st.session_state:
 
 
 # Page config
-st.set_page_config(page_title="Chennai Risk Chatbot", page_icon="🌆")
+st.set_page_config(layout="wide", page_title="Chennai Risk Chatbot", page_icon="🌆")
+
 st.markdown("""
     <style>
         .big-font { font-size:24px !important; }
@@ -89,6 +91,10 @@ with st.sidebar:
     if current_user and current_user in all_histories:
         user_chats = all_histories[current_user]
 
+        # ✅ Fix: Ensure user_chats is a dictionary before accessing .keys()
+        if not isinstance(user_chats, dict):
+            user_chats = {}
+
         if not user_chats:
             st.info("No previous chats found.")
         else:
@@ -106,13 +112,8 @@ with st.sidebar:
                         with open(HISTORY_FILE, "w") as f:
                             json.dump(all_histories, f, indent=2)
                         st.rerun()
-
     else:
         st.info("Start a chat to see your history.")
-
-
-
-
 
 # Load data
 accident_df = pd.read_excel("accident.xlsx")
