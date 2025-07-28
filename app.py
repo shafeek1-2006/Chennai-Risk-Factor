@@ -75,6 +75,7 @@ with st.sidebar:
             st.markdown(f"- *Name:* {st.session_state.username}")
             st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
             st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
+            st.markdown(f"- *Email:* {st.session_state.get('user_email', '-')}")
         st.markdown("---")
 
 
