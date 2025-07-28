@@ -9,3 +9,4 @@ spacy
 matplotlib
 plotly
 mysql-connector-python 
+twilio
