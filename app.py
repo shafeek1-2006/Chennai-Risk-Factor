@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import difflib
 import os
-import pytz
 from datetime import datetime
+import pytz
 import openpyxl
 import json
 
@@ -149,12 +149,21 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             st.session_state.username = name
             st.session_state.user_age = age
             st.session_state.user_gender = gender
+
+            ist = pytz.timezone('Asia/Kolkata')
+            current_time = datetime.now(ist).strftime("%I:%M %p")
+
+            welcome_text = f"Hi brother, welcome to Chennai AI Assistant Chatbot! 😊"
+
             st.session_state.messages = [{
                 "role": "assistant",
-                "content": f"Hi {name}, welcome to **Chennai AI Assistant Chatbot**! 😊",
-                "time": datetime.now().strftime("%I:%M %p")
+                "content": f"🤖 AI {current_time}\n\n{welcome_text}",
+                "time": current_time
             }]
+            st.markdown(f"🤖 AI {current_time}")
+            st.markdown(welcome_text)
             st.rerun()
+
     st.stop()
 
 
