@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import difflib
 import os
-from datetime import datetime
 import pytz
+from datetime import datetime
 import openpyxl
 import json
 
@@ -336,26 +336,29 @@ for msg in st.session_state.messages:
             
 
 # Chat input
+import pytz
+from datetime import datetime
+
+# Chat input
 reply_type = None  # Prevent NameError on first check
 query = st.chat_input("Type your query here...")
 
 if query:
-    timestamp = datetime.now().strftime("%I:%M %p")
+    # Get current IST time
+    ist = pytz.timezone('Asia/Kolkata')
+    ist_now = datetime.now(ist)
+    timestamp = ist_now.strftime("%I:%M %p")  # Correct local time (e.g., 02:51 PM)
 
     if st.session_state.chat_title == "":
         if reply_type:
             st.session_state.chat_title = reply_type.capitalize()
         else:
-            ist = pytz.timezone('Asia/Kolkata')
-            ist_now = datetime.now(ist)
             st.session_state.chat_title = f"Chat - {ist_now.strftime('%b %d, %I:%M %p')}"
-
 
     st.session_state.messages.append({
         "role": "user", "content": query, "time": timestamp
     })
 
-    # 💬 Greeting check logic here
     greetings = [
         "hi", "hello", "hey", "hai", "yo", "sup", "heya", "hiya", "wassup", "what's up",
         "good morning", "good afternoon", "good evening", "morning", "evening", "afternoon",
@@ -372,7 +375,7 @@ if query:
 
     q = query.lower()
     if any(greet in q for greet in greetings):
-        bot_reply = f"Hello {st.session_state.username}! 👋 I'm **Chennai AI Risk Chatbot**. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
+        bot_reply = f"🤖 AI {timestamp}\n\nHello {st.session_state.username}! 👋 I'm **Chennai AI Risk Chatbot**. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
         st.session_state.messages.append({
             "role": "assistant",
             "content": bot_reply,
@@ -381,6 +384,7 @@ if query:
         st.rerun()
 
     zone, reply_type, bot_reply = None, None, ""
+
 
 
     if "flood" in q or "rain" in q:
