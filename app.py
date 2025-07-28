@@ -143,9 +143,9 @@ st.set_page_config(page_title="User OTP Form", page_icon="🔐", layout="centere
 
 # --- Twilio OTP Sending Function ---
 def send_otp(phone_number):
-    account_sid = "your_account_sid_here"
-    auth_token = "your_auth_token_here"
-    twilio_number = "your_twilio_phone_number_here"  # Example: "+1415XXXXXXX"
+    account_sid = "ACfe1e427ec68760efc1d8874d377a9a75"
+    auth_token = "42d87934f18b33207a188c7dbf9d9286"
+    twilio_number = "+91 8124562125"  # Example: "+1415XXXXXXX"
 
     client = Client(account_sid, auth_token)
     otp = str(random.randint(100000, 999999))
