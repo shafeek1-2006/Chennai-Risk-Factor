@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import difflib
 import os
 from datetime import datetime
+import pytz
 import openpyxl
 import json
 
@@ -345,7 +346,10 @@ if query:
         if reply_type:
             st.session_state.chat_title = reply_type.capitalize()
         else:
-            st.session_state.chat_title = f"Chat - {datetime.now().strftime('%b %d, %I:%M %p')}"
+            ist = pytz.timezone('Asia/Kolkata')
+            ist_now = datetime.now(ist)
+            st.session_state.chat_title = f"Chat - {ist_now.strftime('%b %d, %I:%M %p')}"
+
 
     st.session_state.messages.append({
         "role": "user", "content": query, "time": timestamp
