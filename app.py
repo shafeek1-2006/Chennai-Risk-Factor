@@ -99,7 +99,8 @@ for idx, place in enumerate(places):
         st.markdown(f"- {place}")
 
 
-st.subheader("🔒 OTP Verification")
+st.header("Chennai Chatbot")
+
 
 if "otp_verified" not in st.session_state:
     st.session_state["otp_verified"] = False
@@ -197,18 +198,23 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             ist = pytz.timezone('Asia/Kolkata')
             current_time = datetime.now(ist).strftime("%I:%M %p")
 
-            welcome_text = f"Hi brother, welcome to Chennai AI Assistant Chatbot! 😊"
+            # ✅ Personalized welcome message with user name
+            welcome_text = f"Hi {name}, welcome to Chennai Chatbot! 😊"
 
+            # ✅ Store it with updated bot name
             st.session_state.messages = [{
                 "role": "assistant",
-                "content": f"🤖 AI {current_time}\n\n{welcome_text}",
+                "content": f"🤖 Chennai Chatbot {current_time}\n\n{welcome_text}",
                 "time": current_time
             }]
-            st.markdown(f"🤖 AI {current_time}")
+
+            # ✅ Display updated bot name and welcome
+            st.markdown(f"🤖 Chennai Chatbot {current_time}")
             st.markdown(welcome_text)
             st.rerun()
 
     st.stop()
+
 
 
 
