@@ -12,12 +12,12 @@ import mysql.connector
 
 # Database connection
 conn = mysql.connector.connect(
-    host="127.0.0.1",       # or your DB host
+    host="db4free.net",
     user="root",
     password="Sqlsr@123",
     database="chennai_chatbot"
-    port=3306
 )
+
 cursor = conn.cursor()
 
 
