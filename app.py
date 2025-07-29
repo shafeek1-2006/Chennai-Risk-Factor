@@ -25,8 +25,7 @@ def insert_user_to_db(name, age, gender, email):
         cursor.close()
         conn.close()
     except mysql.connector.Error as e:
-        st.error(f"Failed to insert user: {e}")
-
+        st.error(f"❌ Failed to save user profile: {e}")
 
 HISTORY_FILE = "history.json"
 
@@ -156,13 +155,14 @@ for df in [accident_df, flood_df, crime_df, air_df, heat_df, population_df, risk
 # Initialize session state
 # Ask for user's name only once
 # Ask for user's name, age, gender only once
-if st.session_state.username == "" and st.session_state.chat_title == "":
-    with st.form("user_info_form", clear_on_submit=False):
-        name = st.text_input("👤 Enter your name:")
-        age = st.text_input("🎂 Enter your age:")
-        gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
-        email = st.text_input("📧 Enter your email:")
-        submitted = st.form_submit_button("Start Chat")
+if "username" not in st.session_state:
+    st.subheader("Please enter your profile details before using the chatbot.")
+    with st.form("user_profile_form", clear_on_submit=False):
+        name = st.text_input("👤 Your Name")
+        age = st.number_input("🎂 Age", min_value=1, max_value=100, step=1)
+        gender = st.selectbox("🚻 Gender", ["Male", "Female", "Other"])
+        email = st.text_input("📧 Email")
+        submitted = st.form_submit_button("Submit")
 
         if submitted and name and age and gender and email:
             st.session_state.username = name
@@ -170,7 +170,6 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             st.session_state.user_gender = gender
             st.session_state.user_email = email
 
-            # Save user info to database
             insert_user_to_db(name, age, gender, email)
 
             st.session_state.messages = [{
@@ -178,7 +177,7 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
                 "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
                 "time": get_current_ist_time()
             }]
-            st.rerun()
+            st.rerun() 
 
 
 def email_to_filename(email):
