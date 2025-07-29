@@ -32,6 +32,12 @@ def get_current_ist_time():
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# When user sends message
+st.session_state.messages.append({"role": "user", "content": user_message, "time": timestamp})
+
+# When bot replies
+st.session_state.messages.append({"role": "assistant", "content": bot_response, "time": timestamp})
+
 if "username" not in st.session_state:
     st.session_state.username = ""
 
@@ -482,31 +488,14 @@ if query:
         "type": reply_type,
         "zone": zone
     })
-    username = st.session_state.get("username", "guest")
-    email = st.session_state.get("email", "guest_user@example.com")
-    chat_title = st.session_state.get("chat_title", "Default Chat")
-    messages = st.session_state.get("messages", [])
+        # Save the updated history
+    if st.session_state.username not in all_histories:
+        all_histories[st.session_state.username] = {}
 
-    # Save full chat session under user
-    if username not in all_histories:
-        all_histories[username] = {}
+    all_histories[st.session_state.username][st.session_state.chat_title] = st.session_state.messages
 
-    all_histories[username][chat_title] = messages
-
-    # Optionally, also save email-level history
-    if email not in all_histories:
-        all_histories[email] = []
-
-    # If just saving recent user+bot interaction
-    if messages:
-        last_message = messages[-1]
-        all_histories[email].append({
-            "user": last_message["content"] if last_message["role"] == "user" else "",
-            "bot": last_message["content"] if last_message["role"] == "assistant" else ""
-        })
-
-    # Save to file
     with open(HISTORY_FILE, "w") as f:
         json.dump(all_histories, f, indent=4)
+
 
     st.rerun()
