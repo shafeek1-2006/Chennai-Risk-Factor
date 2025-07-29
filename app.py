@@ -61,7 +61,7 @@ st.markdown("""
 st.markdown("#### 🔍 You can ask about these areas:")
 
 places = [
-    "Thiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
+    "Tiruvottiyur", "Egmore", "Madhavaram", "Tondiarpet", "Royapuram",
     "Perambur", "Purasaiwakkam", "Anna Nagar", "Koyambedu", "T Nagar",
     "Velachery", "Guindy", "Adyar", "Vadapalani", "Sholinganallur"
 ]
