@@ -28,9 +28,6 @@ IST = timezone(timedelta(hours=5, minutes=30))
 def get_current_ist_time():
     return datetime.now(IST).strftime("%I:%M %p")
 
-current_time = datetime.now().strftime("%I:%M %p")
-
-
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -157,7 +154,7 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             st.session_state.messages = [{
                 "role": "assistant",
                 "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
-                "time": current_time
+                "time": datetime.now().strftime("%I:%M %p")
             }]
             st.rerun()
     st.stop()
