@@ -16,6 +16,7 @@ conn = mysql.connector.connect(
     user="root",
     password="Sqlsr@123",
     database="chennai_chatbot"
+    port=3306
 )
 cursor = conn.cursor()
 
