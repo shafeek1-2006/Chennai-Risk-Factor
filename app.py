@@ -15,7 +15,7 @@ conn = mysql.connector.connect(
     host="db4free.net",
     user="root",
     password="Sqlsr@123",
-    database="chennai_chatbot"
+    database="`chennai_chatbot`"
     conn = mysql.connector.connect(
     port=3306
 )
