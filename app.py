@@ -11,13 +11,13 @@ import json
 
 HISTORY_FILE = "history.json"
 
-# Load chat history
+# Load previous history
 if os.path.exists(HISTORY_FILE):
     with open(HISTORY_FILE, "r") as f:
         try:
             all_histories = json.load(f)
             if isinstance(all_histories, list):
-                all_histories = {}  # reset if old format
+                all_histories = {}
         except:
             all_histories = {}
 else:
@@ -29,14 +29,16 @@ def get_current_ist_time():
     return datetime.now(IST).strftime("%I:%M %p")
 
 
+# Set session key for this user (you can make this dynamic using st.text_input for user login)
+user_key = "default_user"
+
+if user_key not in all_histories:
+    all_histories[user_key] = []
+
+# Initialize session state
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = all_histories[user_key]
 
-# When user sends message
-st.session_state.messages.append({"role": "user", "content": user_message, "time": timestamp})
-
-# When bot replies
-st.session_state.messages.append({"role": "assistant", "content": bot_response, "time": timestamp})
 
 if "username" not in st.session_state:
     st.session_state.username = ""
@@ -480,22 +482,18 @@ if query:
 
     else:
         bot_reply = "❓ Try asking about accidents, air pollution, crime, heat, flood, population, or risk."
-
+    bot_reply = f"Echo: {query}"
     st.session_state.messages.append({
         "role": "assistant",
         "content": bot_reply,
-        "time": timestamp,
-        "type": reply_type,
-        "zone": zone
+        "time": timestamp
     })
-        # Save the updated history
-    if st.session_state.username not in all_histories:
-        all_histories[st.session_state.username] = {}
 
-    all_histories[st.session_state.username][st.session_state.chat_title] = st.session_state.messages
-
+    # Save all history
+    all_histories[user_key] = st.session_state.messages
     with open(HISTORY_FILE, "w") as f:
-        json.dump(all_histories, f, indent=4)
+        json.dump(all_histories, f, indent=2)
+
 
 
     st.rerun()
