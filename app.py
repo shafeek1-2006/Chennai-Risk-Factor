@@ -177,7 +177,7 @@ if "username" not in st.session_state:
                 "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
                 "time": get_current_ist_time()
             }]
-            st.rerun() 
+            st.rerun()
 
 
 def email_to_filename(email):
