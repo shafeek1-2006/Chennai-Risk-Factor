@@ -6,26 +6,8 @@ import os
 from datetime import datetime, timedelta, timezone
 import openpyxl
 import json
-import mysql.connector
 
-def insert_user_to_db(name, age, gender, email):
-    try:
-        conn = mysql.connector.connect(
-            host="db4free.net",
-            user="shafeeq123",
-            password="Shafeeq@123",
-            database="chennai_chatbot"
-        )
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO users (name, age, gender, email) VALUES (%s, %s, %s, %s)",
-            (name, age, gender, email)
-        )
-        conn.commit()
-        cursor.close()
-        conn.close()
-    except mysql.connector.Error as e:
-        st.error(f"❌ Failed to save user profile: {e}")
+
 
 HISTORY_FILE = "history.json"
 
@@ -44,7 +26,8 @@ else:
 IST = timezone(timedelta(hours=5, minutes=30))
 
 def get_current_ist_time():
-    return datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime("%I:%M %p")
+    return datetime.now(IST).strftime("%I:%M %p")
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -94,10 +77,10 @@ with st.sidebar:
     # Sidebar: Collapsible User Profile
     if st.session_state.username:
         with st.expander("👤 User Profile", expanded=False):
-            st.markdown(f"- *Name:* {st.session_state.username}")
-            st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
-            st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
-            st.markdown(f"- *Email:* {st.session_state.get('user_email', '-')}")
+            st.markdown(f"- Name: {st.session_state.username}")
+            st.markdown(f"- Age: {st.session_state.get('user_age', '-')}")
+            st.markdown(f"- Gender: {st.session_state.get('user_gender', '-')}")
+            st.markdown(f"- Email: {st.session_state.get('user_email', '-')}")
         st.markdown("---")
 
 
@@ -155,33 +138,31 @@ for df in [accident_df, flood_df, crime_df, air_df, heat_df, population_df, risk
 # Initialize session state
 # Ask for user's name only once
 # Ask for user's name, age, gender only once
-if "username" not in st.session_state:
-    st.subheader("Please enter your profile details before using the chatbot.")
-    with st.form("user_profile_form", clear_on_submit=False):
-        name = st.text_input("👤 Your Name")
-        age = st.number_input("🎂 Age", min_value=1, max_value=100, step=1)
-        gender = st.selectbox("🚻 Gender", ["Male", "Female", "Other"])
-        email = st.text_input("📧 Email")
-        submitted = st.form_submit_button("Submit")
+if st.session_state.username == "" and st.session_state.chat_title == "":
+    with st.form("user_info_form", clear_on_submit=False):
+        name = st.text_input("👤 Enter your name:")
+        age = st.text_input("🎂 Enter your age:")
+        gender = st.selectbox("⚧ Select your gender:", ["Male", "Female", "Other"])
+        email = st.text_input("📧 Enter your email:")
+        submitted = st.form_submit_button("Start Chat")
 
         if submitted and name and age and gender and email:
             st.session_state.username = name
             st.session_state.user_age = age
             st.session_state.user_gender = gender
             st.session_state.user_email = email
-
-            insert_user_to_db(name, age, gender, email)
-
             st.session_state.messages = [{
                 "role": "assistant",
-                "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
+                "content": f"Hi {name}, welcome to Chennai AI Assistant Chatbot! 😊",
                 "time": get_current_ist_time()
             }]
             st.rerun()
+        st.stop()
+
 
 
 def email_to_filename(email):
-    return email.replace('@', '_at_').replace('.', '_') + '.json'
+    return email.replace('@', 'at').replace('.', '_') + '.json'
 
 # Directory to store chat history
 os.makedirs("history_data", exist_ok=True)
@@ -409,7 +390,7 @@ if query:
 
     q = query.lower()
     if any(greet in q for greet in greetings):
-        bot_reply = f"Hello {st.session_state.username}! 👋 I'm *Chennai AI Risk Chatbot*. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
+        bot_reply = f"Hello {st.session_state.username}! 👋 I'm Chennai AI Risk Chatbot. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
         st.session_state.messages.append({
             "role": "assistant",
             "content": bot_reply,
