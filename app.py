@@ -154,10 +154,11 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             st.session_state.messages = [{
                 "role": "assistant",
                 "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
-                "time": datetime.now().strftime("%I:%M %p")
+                "time": get_current_ist_time()
             }]
             st.rerun()
-    st.stop()
+        st.stop()
+
 
 
 def email_to_filename(email):
