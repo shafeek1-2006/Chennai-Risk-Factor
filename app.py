@@ -6,23 +6,7 @@ import os
 from datetime import datetime, timedelta, timezone
 import openpyxl
 import json
-import mysql.connector
 
-
-
-# Database connection
-conn = mysql.connector.connect(
-    host="db4free.net",
-    user="root",
-    password="Sqlsr@123",
-    database="`chennai_chatbot`"
-    conn = mysql.connector.connect(
-    port=3306
-)
-
-)
-
-cursor = conn.cursor()
 
 
 HISTORY_FILE = "history.json"
@@ -42,7 +26,8 @@ else:
 IST = timezone(timedelta(hours=5, minutes=30))
 
 def get_current_ist_time():
-    return datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime("%I:%M %p")
+    return datetime.now(IST).strftime("%I:%M %p")
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -92,10 +77,10 @@ with st.sidebar:
     # Sidebar: Collapsible User Profile
     if st.session_state.username:
         with st.expander("👤 User Profile", expanded=False):
-            st.markdown(f"- *Name:* {st.session_state.username}")
-            st.markdown(f"- *Age:* {st.session_state.get('user_age', '-')}")
-            st.markdown(f"- *Gender:* {st.session_state.get('user_gender', '-')}")
-            st.markdown(f"- *Email:* {st.session_state.get('user_email', '-')}")
+            st.markdown(f"- Name: {st.session_state.username}")
+            st.markdown(f"- Age: {st.session_state.get('user_age', '-')}")
+            st.markdown(f"- Gender: {st.session_state.get('user_gender', '-')}")
+            st.markdown(f"- Email: {st.session_state.get('user_email', '-')}")
         st.markdown("---")
 
 
@@ -166,24 +151,18 @@ if st.session_state.username == "" and st.session_state.chat_title == "":
             st.session_state.user_age = age
             st.session_state.user_gender = gender
             st.session_state.user_email = email
-
-            # Insert into MySQL
-            insert_query = "INSERT INTO users (name, age, gender, email) VALUES (%s, %s, %s, %s)"
-            values = (name, age, gender, email)
-            cursor.execute(insert_query, values)
-            conn.commit()
-
             st.session_state.messages = [{
                 "role": "assistant",
-                "content": f"Hi {name}, welcome to *Chennai AI Assistant Chatbot*! 😊",
+                "content": f"Hi {name}, welcome to Chennai AI Assistant Chatbot! 😊",
                 "time": get_current_ist_time()
             }]
             st.rerun()
         st.stop()
 
 
+
 def email_to_filename(email):
-    return email.replace('@', '_at_').replace('.', '_') + '.json'
+    return email.replace('@', 'at').replace('.', '_') + '.json'
 
 # Directory to store chat history
 os.makedirs("history_data", exist_ok=True)
@@ -411,7 +390,7 @@ if query:
 
     q = query.lower()
     if any(greet in q for greet in greetings):
-        bot_reply = f"Hello {st.session_state.username}! 👋 I'm *Chennai AI Risk Chatbot*. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
+        bot_reply = f"Hello {st.session_state.username}! 👋 I'm Chennai AI Risk Chatbot. You can ask me about risk factors like accident, flood, pollution, etc. 😊"
         st.session_state.messages.append({
             "role": "assistant",
             "content": bot_reply,
