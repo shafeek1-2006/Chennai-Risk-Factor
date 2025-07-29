@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import difflib
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import openpyxl
 import json
 
@@ -22,6 +22,11 @@ if os.path.exists(HISTORY_FILE):
             all_histories = {}
 else:
     all_histories = {}
+
+IST = timezone(timedelta(hours=5, minutes=30))
+
+def get_current_ist_time():
+    return datetime.now(IST).strftime("%I:%M %p")
 
 
 if "messages" not in st.session_state:
@@ -200,6 +205,7 @@ def plot_bar(df, xcol, ycol, title, color='blue'):
     st.pyplot(fig)
 
 # Display previous messages with visual responses
+# Display previous messages with visual responses
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         timestamp = msg.get("time", "")
@@ -207,6 +213,7 @@ for msg in st.session_state.messages:
         role_name = "You" if msg["role"] == "user" else "AI"
         st.markdown(f"{role_icon} {role_name} {timestamp}")
         st.markdown(msg["content"])
+
 
     if msg["role"] == "assistant":
         zone = msg.get("zone", "")
@@ -349,19 +356,21 @@ for msg in st.session_state.messages:
             
 
 # Chat input
+# Chat input
 reply_type = None  # Prevent NameError on first check
 query = st.chat_input("Type your query here...")
 if query:
-    timestamp = datetime.now().strftime("%I:%M %p")
+    timestamp = get_current_ist_time()
     if st.session_state.chat_title == "":
         if reply_type:
             st.session_state.chat_title = reply_type.capitalize()
         else:
-            st.session_state.chat_title = f"Chat - {datetime.now().strftime('%b %d, %I:%M %p')}"
+            st.session_state.chat_title = f"Chat - {datetime.now(IST).strftime('%b %d, %I:%M %p')}"
 
     st.session_state.messages.append({
         "role": "user", "content": query, "time": timestamp
     })
+
 
     # 💬 Greeting check logic here
     greetings = [
